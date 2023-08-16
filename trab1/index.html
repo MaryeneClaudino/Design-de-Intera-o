@@ -4,11 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Liga Regional</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200;10..48,500&display=swap"
+        rel="stylesheet">
+    <link rel="preload" href="estilos-css/global.css" as="style">
+    <link rel="stylesheet" type="text/css" href="estilos-css/global.css" />
 </head>
 
 <body>
-    //fazer criando os inputs e deletando
+    <header>
+        <!-- <h1>Liga Regional</h1> -->
+        <img class="logo" src="img/logoLiga.png">
+    </header>
+    <div class="card-principal">
+        <h1 class="titulo">Seleção dos Times</h1>
+        <div class="position-nome-cor">
+            <div class="position-label-input">
+                <label for="time1">Primeiro Time</label>
+                <input type="text" id="time1" name="time1">
+            </div>
+            <div class="position-label-input">
+                <label for="cor1">Cor do Time</label>
+                <input type="color" id="cor1" name="cor1">
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
