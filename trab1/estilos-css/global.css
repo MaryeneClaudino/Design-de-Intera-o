@@ -66,19 +66,19 @@ header {
 }
 
 .button {
-  color: var(--bs-beige-4);
-  border-radius: 10px;
+    border-radius: 10px;
   font-weight: 500;
   font-size: 1.7rem;
   height: 50px;
   width: 160px;
-  margin-top: 10px;
-  background-color: var(--bs-green-5);
-  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-green-4);
+  margin-top: 10px; 
+   color: var(--bs-blue-4);
+  background-color: var(--bs-beige-2);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
 }
 
 .button:hover {
-  color: var(--bs-blue-4);
-  background-color: var(--bs-beige-2);
-  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
+color: var(--bs-beige-4);
+ background-color: var(--bs-green-5);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-green-4);
 }
