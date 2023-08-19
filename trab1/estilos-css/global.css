@@ -29,8 +29,8 @@ header {
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  width: 60vw;
-  height: 33vw;
+  width: 60%;
+  height: auto;
   margin: auto;
   border: 2px solid var(--bs-blue-3);
   border-radius: 20px;
@@ -47,6 +47,7 @@ header {
 .titulo {
   font-weight: 500;
   text-align: center;
+  margin-top: 10px;
 }
 
 .position-inputs {
@@ -66,19 +67,54 @@ header {
 }
 
 .button {
-    border-radius: 10px;
+  border-radius: 10px;
   font-weight: 500;
   font-size: 1.7rem;
   height: 50px;
   width: 160px;
-  margin-top: 10px; 
-   color: var(--bs-blue-4);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: var(--bs-blue-4);
   background-color: var(--bs-beige-2);
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
 }
 
 .button:hover {
-color: var(--bs-beige-4);
- background-color: var(--bs-green-5);
+  color: var(--bs-beige-4);
+  background-color: var(--bs-green-5);
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-green-4);
+}
+
+@media screen and (min-width: 360px) {
+  .logo {
+    height: clamp(160px, 25vw, 200px);
+  }
+
+  .card-principal {
+    width: 90%;
+  }
+
+  .position-inputs {
+    flex-direction: column;
+  }
+
+  .label {
+    font-size: clamp(1.6rem, 4vw, 3rem);
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .card-principal {
+    width: 80%;
+  }
+
+  .titulo {
+    font-size: clamp(1.5rem, 7vw, 3.5rem);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .position-inputs {
+    flex-direction: row;
+  }
 }
