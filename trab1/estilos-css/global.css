@@ -174,7 +174,7 @@ header {
 
 @media screen and (min-width: 900px) {
   body {
-    min-height: 72vw;
+    min-height: 74vw;
   }
 
   .input {
