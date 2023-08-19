@@ -12,6 +12,7 @@ body {
     rgba(160, 212, 132, 1) 41%,
     rgba(127, 177, 99, 1) 80%
   );
+  min-height: 72vw;
 }
 
 header {
@@ -62,16 +63,22 @@ header {
   border-radius: 10px;
   background-color: var(--bs-green-5);
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-green-4);
-  color: var(--bs-beige-4);
+  color: var(--bs-blue-4);
   font-weight: 500;
+  font-size: 1.2rem;
+  padding: 15px;
+}
+
+.input-color {
+  height: 30px;
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-green-4);
 }
 
 .button {
   border-radius: 10px;
   font-weight: 500;
   font-size: 1.7rem;
-  height: 50px;
-  width: 160px;
+  padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
   color: var(--bs-blue-4);
@@ -85,9 +92,20 @@ header {
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-green-4);
 }
 
+.campeao {
+  font-weight: 500;
+  text-align: center;
+  margin-top: 155px;
+  margin-bottom: 155px;
+}
+
 @media screen and (min-width: 360px) {
+  body {
+    min-height: 210vw;
+  }
+
   .logo {
-    height: clamp(160px, 25vw, 200px);
+    height: clamp(160px, 25vw, 180px);
   }
 
   .card-principal {
@@ -99,22 +117,120 @@ header {
   }
 
   .label {
-    font-size: clamp(1.6rem, 4vw, 3rem);
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
+  }
+
+  .input,
+  .input-color {
+    width: 75vw;
   }
 }
 
 @media screen and (min-width: 500px) {
+  body {
+    min-height: 160vw;
+  }
+
   .card-principal {
     width: 80%;
   }
 
-  .titulo {
-    font-size: clamp(1.5rem, 7vw, 3.5rem);
+  .titulo,
+  .campeao {
+    font-size: 2.5rem;
+  }
+
+  .input,
+  .input-color {
+    width: 65vw;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  body {
+    min-height: 130vw;
+  }
+
+  .titulo,
+  .campeao {
+    font-size: clamp(1.8rem, 5.5vw, 3.5rem);
+  }
+
+  .card-principal {
+    width: 70%;
+  }
+
+  .input,
+  .input-color {
+    width: 55vw;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  body {
+    min-height: 160vw;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  body {
+    min-height: 72vw;
+  }
+
+  .input {
+    font-size: 1.3rem;
+    height: 40px;
   }
 }
 
 @media screen and (min-width: 1000px) {
   .position-inputs {
     flex-direction: row;
+  }
+
+  .card-principal {
+    width: 82%;
+  }
+
+  .label {
+    font-size: clamp(2rem, 2.3vw, 2.3rem);
+  }
+
+  .input-color {
+    width: 7vw;
+  }
+
+  .input {
+    width: 24vw;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  body {
+    min-height: 57vw;
+  }
+
+  .card-principal {
+    width: 70%;
+  }
+
+  .input-color {
+    width: 5vw;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  body {
+    min-height: 65vw;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .card-principal {
+    width: 60%;
+  }
+
+  .input {
+    width: 17vw;
   }
 }
