@@ -12,7 +12,7 @@ body {
     rgba(160, 212, 132, 1) 41%,
     rgba(127, 177, 99, 1) 80%
   );
-  min-height: 72vw;
+  min-height: 75vw;
 }
 
 header {
@@ -174,7 +174,7 @@ header {
 
 @media screen and (min-width: 900px) {
   body {
-    min-height: 72vw;
+    min-height: 74vw;
   }
 
   .input {
