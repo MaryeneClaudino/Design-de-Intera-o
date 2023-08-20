@@ -183,7 +183,7 @@ function createNextMatch() {
 
     let penaltsTitle = document.createElement("h1");
     penaltsTitle.setAttribute("class", "title");
-    penaltsTitle.innerText = "Penalts Semifinal";
+    penaltsTitle.innerText = "Penalts";
     penaltsTitle.style.display = "none";
     contentContainer.appendChild(penaltsTitle);
 
