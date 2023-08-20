@@ -58,7 +58,11 @@ header {
   gap: 3vw;
 }
 
-.input {
+.label-style {
+  width: 232px;
+}
+
+.input-style {
   height: 30px;
   border-radius: 10px;
   background-color: var(--bs-green-5);
@@ -74,7 +78,7 @@ header {
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-green-4);
 }
 
-.button {
+.button-style {
   border-radius: 10px;
   font-weight: 500;
   font-size: 1.7rem;
@@ -86,10 +90,14 @@ header {
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
 }
 
-.button:hover {
+.button-style:hover {
   color: var(--bs-beige-4);
   background-color: var(--bs-green-5);
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-green-4);
+}
+
+.button-style:disabled {
+  /* Setar estilo */
 }
 
 .campeao {
@@ -116,11 +124,11 @@ header {
     flex-direction: column;
   }
 
-  .label {
+  .label-style {
     font-size: clamp(1.6rem, 3.5vw, 3rem);
   }
 
-  .input,
+  .input-style,
   .input-color {
     width: 75vw;
   }
@@ -140,7 +148,7 @@ header {
     font-size: 2.5rem;
   }
 
-  .input,
+  .input-style,
   .input-color {
     width: 65vw;
   }
@@ -160,7 +168,7 @@ header {
     width: 70%;
   }
 
-  .input,
+  .input-style,
   .input-color {
     width: 55vw;
   }
@@ -177,7 +185,7 @@ header {
     min-height: 74vw;
   }
 
-  .input {
+  .input-style {
     font-size: 1.3rem;
     height: 40px;
   }
@@ -192,7 +200,7 @@ header {
     width: 82%;
   }
 
-  .label {
+  .label-style {
     font-size: clamp(2rem, 2.3vw, 2.3rem);
   }
 
@@ -200,7 +208,7 @@ header {
     width: 7vw;
   }
 
-  .input {
+  .input-style {
     width: 24vw;
   }
 }
@@ -230,7 +238,7 @@ header {
     width: 60%;
   }
 
-  .input {
+  .input-style {
     width: 17vw;
   }
 }
