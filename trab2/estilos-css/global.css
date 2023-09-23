@@ -1,0 +1,258 @@
+@import "reset.css";
+@import "cores.css";
+
+body {
+  font-size: clamp(17px, 3vw, 24px);
+  font-family: "Cormorant Garamond", serif;
+  color: var(--bs-orange-4);
+  background-color: var(--bs-orange-0);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 75vw;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 40px;
+  padding: 1vw;
+  border-radius: 20px;
+}
+
+.card-principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 60%;
+  height: auto;
+  margin: auto;
+  border: 2px solid var(--bs-blue-3);
+  border-radius: 20px;
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-blue-4);
+  margin-bottom: 100px;
+  background-color: var(--bs-blue-5);
+}
+
+.logo {
+  width: auto;
+  height: 10vw;
+}
+
+.titulo {
+  font-weight: 700;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.position-inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3vw;
+}
+
+.input-style {
+  height: 30px;
+  border-radius: 10px;
+  background-color: var(--bs-beige-5);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
+  color: var(--bs-blue-4);
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 15px;
+}
+
+.input-number {
+  width: 100px !important;
+}
+
+.input-color {
+  height: 30px;
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
+}
+
+.button-style {
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.9rem;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: var(--bs-blue-4);
+  background-color: var(--bs-orange-5);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-orange-4);
+  font-family: "Cormorant Garamond", serif;
+}
+
+.button-style:hover {
+  color: var(--bs-orange-4);
+  background-color: var(--bs-beige-5);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
+}
+
+.button-style:disabled {
+  background-color: var(--bs-gray-0);
+  color: var(--bs-gray-1);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-gray-2);
+}
+
+.winner {
+  font-weight: 700;
+  text-align: center;
+  margin-top: 155px;
+  margin-bottom: 155px;
+}
+
+@media screen and (min-width: 360px) {
+  body {
+    min-height: 210vw;
+  }
+
+  .logo {
+    height: clamp(160px, 25vw, 180px);
+  }
+
+  .card-principal {
+    width: 90%;
+  }
+
+  .position-inputs {
+    flex-direction: column;
+  }
+
+  .label-style {
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
+    width: auto;
+  }
+
+  .label-color {
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
+  }
+
+  .input-style,
+  .input-color {
+    width: 75vw;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  body {
+    min-height: 160vw;
+  }
+
+  .card-principal {
+    width: 80%;
+  }
+
+  .titulo,
+  .campeao {
+    font-size: 2.5rem;
+  }
+
+  .input-style,
+  .input-color {
+    width: 65vw;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  body {
+    min-height: 130vw;
+  }
+
+  .titulo,
+  .campeao {
+    font-size: clamp(1.8rem, 5.5vw, 3.5rem);
+  }
+
+  .card-principal {
+    width: 70%;
+  }
+
+  .input-style,
+  .input-color {
+    width: 55vw;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  body {
+    min-height: 160vw;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  body {
+    min-height: 74vw;
+  }
+
+  .input-style {
+    font-size: 1.3rem;
+    height: 40px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .position-inputs {
+    flex-direction: row;
+  }
+
+  .card-principal {
+    width: 82%;
+  }
+
+  .label-style {
+    font-size: clamp(2rem, 2.3vw, 2.3rem);
+    width: 220px;
+  }
+
+  .label-color {
+    font-size: clamp(2rem, 2.3vw, 2.3rem);
+  }
+
+  .input-color {
+    width: 7vw;
+  }
+
+  .input-style {
+    width: 24vw;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  body {
+    min-height: 57vw;
+  }
+
+  .card-principal {
+    width: 70%;
+  }
+
+  .input-color {
+    width: 5vw;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  body {
+    min-height: 65vw;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .card-principal {
+    width: 60%;
+  }
+
+  .label-style {
+    width: 232px;
+  }
+
+  .input-style {
+    width: 17vw;
+  }
+}
