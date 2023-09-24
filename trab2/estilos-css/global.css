@@ -42,10 +42,11 @@ header {
   height: 10vw;
 }
 
-.titulo {
+.title {
   font-weight: 700;
   text-align: center;
   margin-top: 10px;
+  text-align: center;
 }
 
 .position-inputs {
@@ -57,13 +58,40 @@ header {
 
 .input-style {
   height: 30px;
-  border-radius: 10px;
+  border-radius: 10px 0px 10px 0px;
   background-color: var(--bs-beige-5);
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
   color: var(--bs-blue-4);
   font-weight: 700;
   font-size: 1.2rem;
   padding: 15px;
+}
+
+.select-style {
+  height: 40px;
+  width: 250px;
+  border-radius: 10px 0px 10px 0px;
+  background-color: var(--bs-beige-5);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
+  color: var(--bs-blue-4);
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 5px;
+}
+
+.select-style:disabled {
+  background-color: var(--bs-gray-0);
+  color: var(--bs-gray-1);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-gray-2);
+}
+
+.position-matches {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5vw;
+  width: 450px;
 }
 
 .input-number {
@@ -76,7 +104,7 @@ header {
 }
 
 .button-style {
-  border-radius: 10px;
+  border-radius: 10px 0px 10px 0px;
   font-weight: 700;
   font-size: 1.9rem;
   padding: 5px;
@@ -100,11 +128,38 @@ header {
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-gray-2);
 }
 
-.winner {
+.button-smaller {
+  font-size: 1.2rem !important;
+}
+
+.table-style {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  background-color: var(--bs-beige-3);
+  width: 80%;
+  border: 1px solid var(--bs-beige-4);
+  color: var(--bs-orange-4);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-beige-4);
+  margin-bottom: 40px;
+}
+
+.th-style {
+  color: var(--bs-blue-4);
+  background-color: var(--bs-orange-6);
   font-weight: 700;
+}
+
+.td-style,
+.th-style {
+  border-collapse: collapse;
+  border-right: 1px solid var(--bs-beige-4);
+  text-align: left;
+  padding: 8px;
   text-align: center;
-  margin-top: 155px;
-  margin-bottom: 155px;
+}
+
+.tr-style:nth-child(even) {
+  background-color: var(--bs-beige-5);
 }
 
 @media screen and (min-width: 360px) {
@@ -122,6 +177,10 @@ header {
 
   .position-inputs {
     flex-direction: column;
+  }
+
+  .position-matches {
+    gap: 1.5vw;
   }
 
   .label-style {
@@ -148,8 +207,7 @@ header {
     width: 80%;
   }
 
-  .titulo,
-  .campeao {
+  .title {
     font-size: 2.5rem;
   }
 
@@ -164,8 +222,7 @@ header {
     min-height: 130vw;
   }
 
-  .titulo,
-  .campeao {
+  .title {
     font-size: clamp(1.8rem, 5.5vw, 3.5rem);
   }
 
