@@ -61,6 +61,11 @@ function createQuantidadeEquipes() {
     qtdEquipes.setAttribute("max", 20);
     qtdEquipes.setAttribute("type", "number");
     qtdEquipes.addEventListener("change", () => {
+        if (qtdEquipes.value < 3) {
+            qtdEquipes.value = 3;
+        } else if (qtdEquipes.value > 20) {
+            qtdEquipes.value = 20;
+        }
         qtdEquipesValue = qtdEquipes.value;
         activateButton(validate("content-container", "input"));
     });
@@ -311,15 +316,15 @@ function clearContainer() {
 }
 
 function confirmSelectedOptions(container) {
-    let verifyPonitsSets = false;
+    let ponitsSets = false;
     for (let equipe of equipes) {
         if (equipe.points != 0) {
-            verifyPonitsSets = true;
+            ponitsSets = true;
             break;
         }
     }
 
-    if (!verifyPonitsSets) {
+    if (!ponitsSets) {
         let campos = document.getElementById(container).getElementsByTagName("select");
         for (let campo of campos) {
             let matchId = campo.id.split("-")[1];
@@ -473,7 +478,7 @@ function buttonsLocalStorage(contentContainer, namebuttonLoad, functionButtonLoa
     let buttonLoad = document.createElement("button");
     buttonLoad.setAttribute("class", "button-style button-smaller");
     buttonLoad.setAttribute("id", "button-load");
-    buttonLoad.innerText = namebuttonLoad //"Carregar Torneio";
+    buttonLoad.innerText = namebuttonLoad;
     buttonLoad.addEventListener("click", () => {
         functionButtonLoad();
     });
