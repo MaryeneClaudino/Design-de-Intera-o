@@ -402,6 +402,7 @@ function save() {
     torneioInteiro.matches = matches;
     torneioInteiro.qtdEquipesValue = qtdEquipesValue;
     localStorage.setItem("torneio", JSON.stringify(torneioInteiro));
+    alert("Torneio salvo com sucesso!");
 }
 
 function load() {
