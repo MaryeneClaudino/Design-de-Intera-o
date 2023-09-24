@@ -1,8 +1,51 @@
 let qtdEquipesValue;
 let equipes = [];
 let matches = [];
-
+let torneioInteiro = {
+    equipes: [],
+    matches: [],
+    qtdEquipesValue: 0
+}
 // Script
+function createStartChampionship() {
+    let contentContainer = document.getElementById("content-container");
+
+    let containerButtons = document.createElement("div");
+    containerButtons.setAttribute("class", "position-inputs");
+
+    let title = document.createElement("h1");
+    title.setAttribute("class", "title");
+    title.innerText = "Começar o Championship College League";
+    contentContainer.appendChild(title);
+
+    let buttonNew = document.createElement("button");
+    buttonNew.setAttribute("class", "button-style");
+    buttonNew.innerText = "Novo Torneio";
+    buttonNew.addEventListener("click", () => {
+        clearContainer();
+        createQuantidadeEquipes();
+    });
+    containerButtons.appendChild(buttonNew);
+
+    let buttonLoad = document.createElement("button");
+    buttonLoad.setAttribute("class", "button-style");
+    buttonLoad.innerText = "Carregar Torneio";
+    buttonLoad.disabled = true;
+    buttonLoad.addEventListener("click", () => {
+        clearContainer();
+        load();
+    });
+
+    let torneio = localStorage.getItem("torneio");
+    if (torneio != null && torneio != undefined) {
+        buttonLoad.disabled = false;
+    }
+
+    containerButtons.appendChild(buttonLoad);
+
+    contentContainer.appendChild(containerButtons);
+}
+
 function createQuantidadeEquipes() {
     let contentContainer = document.getElementById("content-container");
 
@@ -42,7 +85,7 @@ function createJsonEquipes() {
         let equipe = {
             id: i,
             name: "",
-            points: "",
+            points: 0,
             label: "Equipe " + (i + 1),
         }
         equipes.push(equipe);
@@ -77,6 +120,7 @@ function createInformeEquipes() {
         equipeNameInput.setAttribute("id", "equipe" + equipes[i].id);
         equipeNameInput.setAttribute("maxlength", 12);
         equipeNameInput.setAttribute("type", "text");
+        equipeNameInput.setAttribute("value", equipes[i].name);
         equipeNameInput.addEventListener("change", () => {
             equipes[i].name = equipeNameInput.value;
             activateButton(validate("content-container", "input"));
@@ -94,9 +138,16 @@ function createInformeEquipes() {
     buttonNext.innerText = "Próximo";
     buttonNext.addEventListener("click", () => {
         clearContainer();
+        createModelMatches();
         createChampionship();
     });
     contentContainer.appendChild(buttonNext);
+
+    //Validando se já existem todos os nomes das equipes
+    validateLoadedInputs(equipes, "name");
+
+    //Botões Save/Load
+    buttonsLocalStorage(contentContainer, "Carregar Torneio", load);
 }
 
 function createChampionship() {
@@ -107,36 +158,29 @@ function createChampionship() {
     title.innerText = "Partidas da Championship College League";
     contentContainer.appendChild(title);
 
-    for (let i = 0, count = 0; i <= equipes.length - 2; i++) {
-        for (let j = i + 1; j <= equipes.length - 1; j++) {
-            let match = {
-                id: count + "-" + equipes[i].id + "X" + equipes[j].id,
-                equipe1: equipes[i],
-                equipe1IdPartida: equipes[i].id + "X" + equipes[j].id + "equipe" + equipes[i].id,
-                equipe2: equipes[j],
-                equipe2IdPartida: equipes[i].id + "X" + equipes[j].id + "equipe" + equipes[j].id,
-                results: "",
-            }
-            matches.push(match);
-            count++;
-            createMatches(match, contentContainer);
-        }
+    for (let match of matches) {
+        createMatches(match, contentContainer);
     }
 
     let buttonNext = document.createElement("button");
     buttonNext.setAttribute("class", "button-style");
     buttonNext.setAttribute("id", "button-next");
     buttonNext.disabled = true;
-    buttonNext.innerText = "Próximo";
+    buttonNext.innerText = "Resultados";
     buttonNext.addEventListener("click", () => {
         disableSelects("content-container");
         confirmSelectedOptions("content-container");
         sortEquipesPerPoints();
         buttonNext.remove();
+        removeBottonsLocalStorage();
         createTablePoints(contentContainer);
-        console.log(matches);
     });
     contentContainer.appendChild(buttonNext);
+
+    //Validando se já existem todos os nomes das equipes
+    validateLoadedInputs(matches, "results");
+
+    buttonsLocalStorage(contentContainer, "Carregar Torneio", load);
 }
 
 function createMatches(match, contentContainer) {
@@ -169,6 +213,7 @@ function createMatches(match, contentContainer) {
     let optSelect = document.createElement("option");
     optSelect.innerText = "Selecione";
     optSelect.setAttribute("value", "");
+
     let optEmpate = document.createElement("option");
     optEmpate.innerText = "Empate";
     optEmpate.setAttribute("value", "empate");
@@ -179,12 +224,21 @@ function createMatches(match, contentContainer) {
     optEquipe2.innerText = "Vencedor-" + match.equipe2.name;
     optEquipe2.setAttribute("value", "equipe2");
 
+    if (match.results == "empate") {
+        optEmpate.selected = true;
+    } else if (match.results == "equipe1") {
+        optEquipe1.selected = true;
+    } else if (match.results == "equipe2") {
+        optEquipe2.selected = true;
+    }
+
     results.add(optSelect, null);
     results.add(optEmpate, null);
     results.add(optEquipe1, null);
     results.add(optEquipe2, null);
 
     results.addEventListener("change", () => {
+        match.results = results.value;
         activateButton(validate("content-container", "select"));
     });
 
@@ -215,6 +269,8 @@ function createTablePoints(contentContainer) {
     table.appendChild(trTitle);
 
     for (let equipe of equipes) {
+        console.log("Pontos Equipe " + equipe.name);
+        console.log(equipe.points);
         let trPontuacao = document.createElement("tr");
         trPontuacao.setAttribute("class", "tr-style");
 
@@ -230,6 +286,26 @@ function createTablePoints(contentContainer) {
     }
 
     contentContainer.appendChild(table);
+
+    buttonsLocalStorage(contentContainer, "Reiniciar Torneio", clear);
+}
+
+function createModelMatches() {
+    for (let i = 0, count = 0; i <= equipes.length - 2; i++) {
+        for (let j = i + 1; j <= equipes.length - 1; j++) {
+            let match = {
+                id: count + "-" + equipes[i].id + "X" + equipes[j].id,
+                equipe1: equipes[i],
+                equipe1IdPartida: equipes[i].id + "X" + equipes[j].id + "equipe" + equipes[i].id,
+                equipe2: equipes[j],
+                equipe2IdPartida: equipes[i].id + "X" + equipes[j].id + "equipe" + equipes[j].id,
+                results: "",
+            }
+            matches.push(match);
+            count++;
+
+        }
+    }
 }
 
 function clearContainer() {
@@ -237,21 +313,35 @@ function clearContainer() {
 }
 
 function confirmSelectedOptions(container) {
-    let campos = document.getElementById(container).getElementsByTagName("select");
-    for (let campo of campos) {
-        let matchId = campo.id.split("-")[1];
-        let match = matches[matchId];
-        let optSelected = campo.value;
-        if (optSelected == "empate") {
-            match.equipe1.points++;
-            match.equipe2.points++;
-            match.results = "empate";
-        } else if (optSelected == "equipe1") {
-            match.equipe1.points += 3;
-            match.results = "equipe1";
-        } else if (optSelected == "equipe2") {
-            match.equipe2.points += 3;
-            match.results = "equipe2";
+    let verifyPonitsSets = false;
+    for (let equipe of equipes) {
+        if (equipe.points != 0) {
+            verifyPonitsSets = true;
+            break;
+        }
+    }
+
+    if (!verifyPonitsSets) {
+        let campos = document.getElementById(container).getElementsByTagName("select");
+        for (let campo of campos) {
+            let matchId = campo.id.split("-")[1];
+            let match = matches[matchId];
+            let optSelected = campo.value;
+
+            if (optSelected == "empate") {
+                equipes[match.equipe1.id].points++;
+                equipes[match.equipe2.id].points++;
+                match.results = "empate";
+            } else if (optSelected == "equipe1") {
+                equipes[match.equipe1.id].points += 3;
+                match.results = "equipe1";
+            } else if (optSelected == "equipe2") {
+                equipes[match.equipe2.id].points += 3;
+                match.results = "equipe2";
+            }
+
+            match.equipe1.points = equipes[match.equipe1.id].points;
+            match.equipe2.points = equipes[match.equipe2.id].points;
         }
     }
 }
@@ -281,16 +371,122 @@ function validate(container, tag) {
     return valid;
 }
 
+function validateLoadedInputs(obj, condition) {
+    let verifyInputValue;
+    for (let o of obj) {
+        verifyInputValue = true;
+        if (condition == "name") {
+            if (o.name == "") {
+                verifyInputValue = false;
+                break;
+            }
+        } else if (condition == "results") {
+            if (o.results == "") {
+                verifyInputValue = false;
+                break;
+            }
+        }
+    }
+
+    if (verifyInputValue) {
+        document.getElementById("button-next").disabled = false;
+    }
+}
+
 function activateButton(active) {
     document.getElementById("button-next").disabled = !active;
 }
 
 function save() {
-
+    torneioInteiro.equipes = equipes;
+    torneioInteiro.matches = matches;
+    torneioInteiro.qtdEquipesValue = qtdEquipesValue;
+    localStorage.setItem("torneio", JSON.stringify(torneioInteiro));
 }
 
 function load() {
+    clearContainer();
+    let torneio = localStorage.getItem("torneio");
+    if (torneio != null && torneio != undefined) {
+        torneioInteiro = JSON.parse(torneio);
+    }
+    equipes = torneioInteiro.equipes;
+    matches = torneioInteiro.matches;
+    qtdEquipesValue = torneioInteiro.qtdEquipesValue;
 
+    if (torneioInteiro.qtdEquipesValue == 0) {
+        createQuantidadeEquipes();
+    } else if (torneioInteiro.qtdEquipesValue > 0 && torneioInteiro.equipes.length > 0 && torneioInteiro.matches.length == 0) {
+        createInformeEquipes();
+    } else if (torneioInteiro.qtdEquipesValue > 0 && torneioInteiro.equipes.length > 0 && torneioInteiro.matches.length > 0) {
+        let allresults;
+        let setPoints = false;
+
+        for (let match of torneioInteiro.matches) {
+            allresults = true;
+            if (match.results == "") {
+                allresults = false;
+                break;
+            }
+
+            if (match.equipe1.points != 0 || match.equipe2.points != 0) {
+                setPoints = true;
+            }
+
+        }
+
+        if (allresults) {
+            createChampionship();
+            if (setPoints) {
+                document.getElementById("button-next").click();
+            }
+        } else {
+            createChampionship();
+        }
+    }
+    console.log("Equipes");
+    console.log(equipes);
+    console.log("Partidas");
+    console.log(matches);
+    console.log("Qtd de Equipes participantes do torneio");
+    console.log(qtdEquipesValue);
 }
 
-createQuantidadeEquipes();
+function clear() {
+    localStorage.removeItem('torneio');
+    window.location.reload();
+}
+
+function removeBottonsLocalStorage() {
+    document.getElementById('button-save').remove();
+    document.getElementById('button-load').remove();
+}
+
+function buttonsLocalStorage(contentContainer, namebuttonLoad, functionButtonLoad) {
+    let containerButtons = document.createElement("div");
+    containerButtons.setAttribute("class", "position-matches gapButtons");
+
+    //Botão Salvar
+    let buttonSave = document.createElement("button");
+    buttonSave.setAttribute("class", "button-style button-smaller");
+    buttonSave.setAttribute("id", "button-save");
+    buttonSave.innerText = "Salvar Torneio";
+    buttonSave.addEventListener("click", () => {
+        save();
+    });
+    containerButtons.appendChild(buttonSave);
+
+    //Botão Carregar
+    let buttonLoad = document.createElement("button");
+    buttonLoad.setAttribute("class", "button-style button-smaller");
+    buttonLoad.setAttribute("id", "button-load");
+    buttonLoad.innerText = namebuttonLoad //"Carregar Torneio";
+    buttonLoad.addEventListener("click", () => {
+        functionButtonLoad();
+    });
+    containerButtons.appendChild(buttonLoad);
+
+    contentContainer.appendChild(containerButtons);
+}
+
+createStartChampionship();
