@@ -269,8 +269,6 @@ function createTablePoints(contentContainer) {
     table.appendChild(trTitle);
 
     for (let equipe of equipes) {
-        console.log("Pontos Equipe " + equipe.name);
-        console.log(equipe.points);
         let trPontuacao = document.createElement("tr");
         trPontuacao.setAttribute("class", "tr-style");
 
@@ -416,7 +414,7 @@ function load() {
     qtdEquipesValue = torneioInteiro.qtdEquipesValue;
 
     if (torneioInteiro.qtdEquipesValue == 0) {
-        createQuantidadeEquipes();
+        window.location.reload();
     } else if (torneioInteiro.qtdEquipesValue > 0 && torneioInteiro.equipes.length > 0 && torneioInteiro.matches.length == 0) {
         createInformeEquipes();
     } else if (torneioInteiro.qtdEquipesValue > 0 && torneioInteiro.equipes.length > 0 && torneioInteiro.matches.length > 0) {
@@ -445,12 +443,6 @@ function load() {
             createChampionship();
         }
     }
-    console.log("Equipes");
-    console.log(equipes);
-    console.log("Partidas");
-    console.log(matches);
-    console.log("Qtd de Equipes participantes do torneio");
-    console.log(qtdEquipesValue);
 }
 
 function clear() {
