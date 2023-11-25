@@ -138,19 +138,62 @@ fetch("https://brasilapi.com.br/api/taxas/v1/cdi").then(function (resposta) {
 });
 
 let cepResposta;
+let buttonForm = document.getElementById("ex2FormButton");
+let cepValido = false;
 async function buscarCEP() {
-    let buttonForm = document.getElementById("ex2FormButton");
-    let cep = document.getElementById("cep").value
+    let cep = document.getElementById("cep").value;
     const url = "https://brasilapi.com.br/api/cep/v1/" + cep;
     try {
         let resposta = await fetch(url)
         cepResposta = await resposta.json();
         if (cepResposta.message != undefined || cepResposta.message != null) {
             alert("CEP inválido, tente novamente.");
-            buttonForm.disabled = true;
+            cepValido = false;
         } else {
-            buttonForm.disabled = false;
+            cepValido = true;
         }
+        validarRespostasFormulario();
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+let cnpjResposta;
+let cnpjValido = false;
+async function buscarCNPJ() {
+    let cnpj = document.getElementById("cnpj").value;
+    const url = "https://brasilapi.com.br/api/cnpj/v1/" + cnpj;
+    try {
+        let resposta = await fetch(url)
+        cnpjResposta = await resposta.json();
+        if (cnpjResposta.message != undefined || cnpjResposta.message != null) {
+            alert("CNPJ inválido, tente novamente.");
+            cnpjValido = false;
+        } else {
+            cnpjValido = true;
+        }
+        validarRespostasFormulario();
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+let dddResposta;
+let dddValido = false;
+async function buscarDDD() {
+    let ddd = document.getElementById("ddd").value;
+    const url = "https://brasilapi.com.br/api/ddd/v1/" + ddd;
+    try {
+        let resposta = await fetch(url)
+        dddResposta = await resposta.json();
+        console.log(dddResposta);
+        if (dddResposta.message != undefined || dddResposta.message != null) {
+            alert("DDD inválido, tente novamente.");
+            dddValido = false;
+        } else {
+            dddValido = true;
+        }
+        validarRespostasFormulario();
     } catch (err) {
         console.log(err);
     }
@@ -159,24 +202,62 @@ async function buscarCEP() {
 function createRespForm() {
     let div = document.getElementById("exercicio2");
 
-    let divResposta = document.createElement("div");
-    divResposta.setAttribute("class", "respostaExercicio");
-    divResposta.setAttribute("id", "respostaForm");
+    let divResposta1 = document.createElement("div");
+    divResposta1.setAttribute("class", "respostaExercicio");
+    divResposta1.setAttribute("id", "respostaForm");
 
+    let title = document.createElement("h2");
+    title.innerText = "Informações do CEP";
+    divResposta1.appendChild(title);
     let cidade = document.createElement("p");
     cidade.innerText = "Cidade: " + cepResposta.city;
-    divResposta.appendChild(cidade);
+    divResposta1.appendChild(cidade);
     let estado = document.createElement("p");
     estado.innerText = "Estado: " + cepResposta.state;
-    divResposta.appendChild(estado);
+    divResposta1.appendChild(estado);
     let endereco = document.createElement("p");
     endereco.innerText = "Endereço: " + cepResposta.street;
-    divResposta.appendChild(endereco);
+    divResposta1.appendChild(endereco);
     let bairro = document.createElement("p");
     bairro.innerText = "Bairro: " + cepResposta.neighborhood;
-    divResposta.appendChild(bairro);
+    divResposta1.appendChild(bairro);
 
-    div.appendChild(divResposta);
+    let espaco = document.createElement("br");
+    divResposta1.appendChild(espaco);
+
+    let title2 = document.createElement("h2");
+    title2.innerText = "Informações do CNPJ";
+    divResposta1.appendChild(title2);
+    let localidade = document.createElement("p");
+    localidade.innerText = "Localidade: " + cnpjResposta.municipio + "-" + cnpjResposta.uf;
+    divResposta1.appendChild(localidade);
+    let nomeFantasia = document.createElement("p");
+    nomeFantasia.innerText = "Nome Fantasia: " + cnpjResposta.nome_fantasia;
+    divResposta1.appendChild(nomeFantasia);
+    let cnaes = document.createElement("p");
+    cnaes.innerText = "Descrição fiscal: " + cnpjResposta.cnae_fiscal_descricao;
+    divResposta1.appendChild(cnaes);
+    let dataAbertura = document.createElement("p");
+    dataAbertura.innerText = "Início das atividades em: " + formatarData(cnpjResposta.data_inicio_atividade);
+    divResposta1.appendChild(dataAbertura);
+
+    let espaco2 = document.createElement("br");
+    divResposta1.appendChild(espaco2);
+
+    let title3 = document.createElement("h2");
+    title3.innerText = "Cidades do " + dddResposta.state + " com DDD " + document.getElementById("ddd").value;
+    divResposta1.appendChild(title3);
+    let listaCidades = document.createElement("div");
+    listaCidades.setAttribute("id", "listaCidades");
+
+    for (let cidade of dddResposta.cities) {
+        let c = document.createElement("p");
+        c.innerText = cidade + ", ";
+        listaCidades.appendChild(c);
+    }
+    divResposta1.appendChild(listaCidades);
+
+    div.appendChild(divResposta1);
 }
 
 //Controle do botão do formulário
@@ -187,3 +268,20 @@ document.getElementById("ex2FormButton").addEventListener("click", () => {
     }
     createRespForm();
 });
+
+function validarRespostasFormulario() {
+    if (cepValido && cnpjValido && dddValido) {
+        document.getElementById("ex2FormButton").disabled = false;
+    } else {
+        document.getElementById("ex2FormButton").disabled = true;
+    }
+}
+
+function formatarData(data) {
+    let dia = data.slice(8, 10);
+    let mes = data.slice(5, 7);
+    let ano = data.slice(0, 4);
+
+    return dia + "-" + mes + "-" + ano;
+}
+//-------------------------------------------------------------------------------------------------------------------//
