@@ -8,6 +8,12 @@ body {
   background-color: var(--bs-beige-1);
 }
 
+.lateral-padding,
+p {
+  padding-left: 30px;
+  padding-right: 30px
+}
+
 .respostaExercicio {
   margin-bottom: 20px;
 }

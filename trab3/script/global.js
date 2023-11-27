@@ -101,7 +101,7 @@ function createInfoPaisSelecionado() {
 }
 //-------------------------------------------------------------------------------------------------------------------//
 
-//Exercício 2
+//Exercício 2 (Utilizando destructuring e filter)
 let resParte1 = document.getElementById("ex2Parte1");
 fetch("https://brasilapi.com.br/api/cptec/v1/cidade/rio%20grande").then(function (resposta) {
     resposta.json().then(function (cidades) {
@@ -208,6 +208,7 @@ function createRespForm() {
 
     let title = document.createElement("h2");
     title.innerText = "Informações do CEP";
+    title.setAttribute("class", "lateral-padding");
     divResposta1.appendChild(title);
     let cidade = document.createElement("p");
     cidade.innerText = "Cidade: " + cepResposta.city;
@@ -227,6 +228,7 @@ function createRespForm() {
 
     let title2 = document.createElement("h2");
     title2.innerText = "Informações do CNPJ";
+    title2.setAttribute("class", "lateral-padding");
     divResposta1.appendChild(title2);
     let localidade = document.createElement("p");
     localidade.innerText = "Localidade: " + cnpjResposta.municipio + "-" + cnpjResposta.uf;
@@ -245,6 +247,7 @@ function createRespForm() {
     divResposta1.appendChild(espaco2);
 
     let title3 = document.createElement("h2");
+    title3.setAttribute("class", "lateral-padding");
     title3.innerText = "Cidades do " + dddResposta.state + " com DDD " + document.getElementById("ddd").value;
     divResposta1.appendChild(title3);
     let listaCidades = document.createElement("div");
@@ -285,3 +288,83 @@ function formatarData(data) {
     return dia + "-" + mes + "-" + ano;
 }
 //-------------------------------------------------------------------------------------------------------------------//
+
+//Exercício 3
+let ex3SelectResp;
+let infoMetadados;
+let valoresMetadados;
+
+async function buscarLinhasFixas() {
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')/Valores/";
+    try {
+        let respostaInfo = await fetch(urlInfo)
+        infoMetadados = await respostaInfo.json();
+        console.log(infoMetadados);
+        let respostaValores = await fetch(urlValores)
+        valoresMetadados = await respostaValores.json();
+        console.log(valoresMetadados);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function buscarLinhasMoveis() {
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')/Valores/";
+    try {
+        let respostaInfo = await fetch(urlInfo)
+        infoMetadados = await respostaInfo.json();
+        console.log(infoMetadados);
+        let respostaValores = await fetch(urlValores)
+        valoresMetadados = await respostaValores.json();
+        console.log(valoresMetadados);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function buscarLinhasFixasEMoveis() {
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')/Valores/";
+    try {
+        let respostaInfo = await fetch(urlInfo)
+        infoMetadados = await respostaInfo.json();
+        console.log(infoMetadados);
+        let respostaValores = await fetch(urlValores)
+        valoresMetadados = await respostaValores.json();
+        console.log(valoresMetadados);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+document.getElementById("metadados").addEventListener("change", () => {
+    ex3SelectResp = document.getElementById("metadados").value;
+    if (ex3SelectResp.trim().length > 0) {
+        document.getElementById("ex3Metadados").disabled = false;
+    } else {
+        document.getElementById("ex3Metadados").disabled = true;
+    }
+
+    if (ex3SelectResp == "linhasFixas") {
+        buscarLinhasFixas();
+    } else if (ex3SelectResp == "linhasMoveis") {
+        buscarLinhasMoveis();
+    } else if (ex3SelectResp == "linhasFixasMoveis") {
+        buscarLinhasFixasEMoveis();
+    }
+});
+document.getElementById("ex3Metadados").disabled = true;
+document.getElementById("ex3Metadados").addEventListener("click", () => {
+    if (document.getElementById("respostaMetadados") != undefined || document.getElementById("respostaMetadados") != null) {
+        document.getElementById("respostaMetadados").remove();
+    }
+    console.log(infoMetadados);
+    console.log(valoresMetadados);
+    createRespMetadados();
+});
+
+function createRespMetadados() {
+
+};

@@ -1,0 +1,11 @@
+linhas disponibilizadas para tel fixa:
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')/Valores/
+
+linhas disponibilizadas para tel móvel:
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')/Valores/
+	
+linhas disponibilizadas para tel móvel e fixa:
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')/Valores/

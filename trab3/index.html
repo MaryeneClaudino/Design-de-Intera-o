@@ -39,17 +39,17 @@
                 <form action="">
                     <fieldset class="position-forms-elements">
                         <div class="position-inputs">
-                            <label class="label-style" for="cep">Informe o CEP:</label><br>
+                            <label class="label-style" for="cep">Informe o CEP:</label>
                             <input class="input-style" type="text" id="cep" name="cep" placeholder="12.345-67"
                                 pattern="[0-9]{2}.[0-9]{3}-[0-9]{3}" maxlength="11" required onChange="buscarCEP()"><br>
                         </div>
                         <div class="position-inputs">
-                            <label class="label-style" for="cnpj">Informe o CNPJ:</label><br>
+                            <label class="label-style" for="cnpj">Informe o CNPJ:</label>
                             <input class="input-style" type="text" id="cnpj" name="cnpj" maxlength="14" required
                                 onChange="buscarCNPJ()"><br>
                         </div>
                         <div class="position-inputs">
-                            <label class="label-style" for="ddd">Informe o DDD:</label><br>
+                            <label class="label-style" for="ddd">Informe o DDD:</label>
                             <input class="input-style" type="text" id="ddd" name="ddd" maxlength="2" required
                                 onChange="buscarDDD()"><br>
                         </div>
@@ -58,7 +58,20 @@
                 </form>
             </div>
         </div>
-        <div id="exercicio3" class="card-principal"></div>
+        <div id="exercicio3" class="card-principal">
+            <h1 class="title">Exercícios 3</h1>
+            <div class="position-inputs">
+                <label class="label-style" style="width: auto !important;" for="metadados">Informe a opção
+                    desejada:</label>
+                <select class="input-style" name="metadados" id="metadados">
+                    <option value="">Selecione</option>
+                    <option value="linhasFixas">Linhas Fixas</option>
+                    <option value="linhasMoveis">Linhas Móveis</option>
+                    <option value="linhasFixasMoveis">Linhas Fixas e Móveis</option>
+                </select>
+            </div>
+            <input class="button-style" type="button" value="Enviar" id="ex3Metadados">
+        </div>
         <div id="exercicio4" class="card-principal"></div>
     </div>
     <script src="script/global.js"></script>
