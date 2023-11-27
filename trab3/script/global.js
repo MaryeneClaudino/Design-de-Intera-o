@@ -186,7 +186,6 @@ async function buscarDDD() {
     try {
         let resposta = await fetch(url)
         dddResposta = await resposta.json();
-        console.log(dddResposta);
         if (dddResposta.message != undefined || dddResposta.message != null) {
             alert("DDD inválido, tente novamente.");
             dddValido = false;
@@ -295,6 +294,7 @@ let infoMetadados;
 let valoresMetadados;
 
 async function buscarLinhasFixas() {
+    document.getElementById("ex3Metadados").disabled = true;
     const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')";
     const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')/Valores/";
     try {
@@ -311,6 +311,7 @@ async function buscarLinhasFixas() {
 }
 
 async function buscarLinhasMoveis() {
+    document.getElementById("ex3Metadados").disabled = true;
     const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')";
     const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')/Valores/";
     try {
@@ -327,6 +328,7 @@ async function buscarLinhasMoveis() {
 }
 
 async function buscarLinhasFixasEMoveis() {
+    document.getElementById("ex3Metadados").disabled = true;
     const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')";
     const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')/Valores/";
     try {
