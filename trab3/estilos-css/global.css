@@ -116,17 +116,43 @@ p {
   box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-gray-2);
 }
 
-@media screen and (min-width: 360px) {
-  body {
-    min-height: 210vw;
-  }
+.table-style {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  background-color: var(--bs-pink-3);
+  width: 80%;
+  border: 1px solid var(--bs-pink-5);
+  color: var(--bs-blue-5);
+  box-shadow: 0.2vw 0.2vw 0.3vw var(--bs-pink-5);
+  margin-bottom: 40px;
+}
 
+.th-style {
+  color: var(--bs-blue-5);
+  background-color: var(--bs-pink-3);
+  font-weight: 700;
+}
+
+.td-style,
+.th-style {
+  border-collapse: collapse;
+  border-right: 1px solid var(--bs-beige-5);
+  text-align: left;
+  padding: 8px;
+  text-align: center;
+}
+
+.tr-style:nth-child(even) {
+  background-color: var(--bs-pink-1);
+}
+
+@media screen and (min-width: 360px) {
   .logo {
     height: clamp(160px, 25vw, 180px);
   }
 
   .card-principal {
-    width: 90%;
+    width: 97%;
   }
 
   .position-inputs {
@@ -144,16 +170,12 @@ p {
 }
 
 @media screen and (min-width: 500px) {
-  body {
-    min-height: 160vw;
+  .titulo {
+    font-size: 2.5rem;
   }
 
   .card-principal {
     width: 80%;
-  }
-
-  .titulo {
-    font-size: 2.5rem;
   }
 
   .input-style {
@@ -161,17 +183,25 @@ p {
   }
 }
 
-@media screen and (min-width: 700px) {
-  body {
-    min-height: 130vw;
+@media screen and (max-width: 500px) {
+  .table-style {
+    font-size: 0.95rem;
   }
+}
 
+@media screen and (max-width: 399px) {
+  .table-style {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-width: 700px) {
   .titulo {
     font-size: clamp(1.8rem, 5.5vw, 3.5rem);
   }
 
   .card-principal {
-    width: 70%;
+    width: 75%;
   }
 
   .input-style {
@@ -179,17 +209,7 @@ p {
   }
 }
 
-@media screen and (min-width: 800px) {
-  body {
-    min-height: 160vw;
-  }
-}
-
 @media screen and (min-width: 900px) {
-  body {
-    min-height: 74vw;
-  }
-
   .input-style {
     font-size: 1.3rem;
     height: 40px;
@@ -216,18 +236,8 @@ p {
 }
 
 @media screen and (min-width: 1300px) {
-  body {
-    min-height: 57vw;
-  }
-
   .card-principal {
     width: 70%;
-  }
-}
-
-@media screen and (min-width: 1400px) {
-  body {
-    min-height: 65vw;
   }
 }
 

@@ -289,7 +289,7 @@ function formatarData(data) {
 }
 //-------------------------------------------------------------------------------------------------------------------//
 
-//Exercício 3
+//Exercício 3 (Utilizando reduce)
 let ex3SelectResp;
 let infoMetadados;
 let valoresMetadados;
@@ -300,10 +300,11 @@ async function buscarLinhasFixas() {
     try {
         let respostaInfo = await fetch(urlInfo)
         infoMetadados = await respostaInfo.json();
-        console.log(infoMetadados);
         let respostaValores = await fetch(urlValores)
         valoresMetadados = await respostaValores.json();
-        console.log(valoresMetadados);
+        if (ex3SelectResp.trim().length > 0) {
+            document.getElementById("ex3Metadados").disabled = false;
+        }
     } catch (err) {
         console.log(err);
     }
@@ -315,10 +316,11 @@ async function buscarLinhasMoveis() {
     try {
         let respostaInfo = await fetch(urlInfo)
         infoMetadados = await respostaInfo.json();
-        console.log(infoMetadados);
         let respostaValores = await fetch(urlValores)
         valoresMetadados = await respostaValores.json();
-        console.log(valoresMetadados);
+        if (ex3SelectResp.trim().length > 0) {
+            document.getElementById("ex3Metadados").disabled = false;
+        }
     } catch (err) {
         console.log(err);
     }
@@ -330,10 +332,11 @@ async function buscarLinhasFixasEMoveis() {
     try {
         let respostaInfo = await fetch(urlInfo)
         infoMetadados = await respostaInfo.json();
-        console.log(infoMetadados);
         let respostaValores = await fetch(urlValores)
         valoresMetadados = await respostaValores.json();
-        console.log(valoresMetadados);
+        if (ex3SelectResp.trim().length > 0) {
+            document.getElementById("ex3Metadados").disabled = false;
+        }
     } catch (err) {
         console.log(err);
     }
@@ -341,12 +344,6 @@ async function buscarLinhasFixasEMoveis() {
 
 document.getElementById("metadados").addEventListener("change", () => {
     ex3SelectResp = document.getElementById("metadados").value;
-    if (ex3SelectResp.trim().length > 0) {
-        document.getElementById("ex3Metadados").disabled = false;
-    } else {
-        document.getElementById("ex3Metadados").disabled = true;
-    }
-
     if (ex3SelectResp == "linhasFixas") {
         buscarLinhasFixas();
     } else if (ex3SelectResp == "linhasMoveis") {
@@ -354,17 +351,71 @@ document.getElementById("metadados").addEventListener("change", () => {
     } else if (ex3SelectResp == "linhasFixasMoveis") {
         buscarLinhasFixasEMoveis();
     }
+
+    if (ex3SelectResp.trim().length == 0) {
+        document.getElementById("ex3Metadados").disabled = true;
+    }
 });
 document.getElementById("ex3Metadados").disabled = true;
 document.getElementById("ex3Metadados").addEventListener("click", () => {
     if (document.getElementById("respostaMetadados") != undefined || document.getElementById("respostaMetadados") != null) {
         document.getElementById("respostaMetadados").remove();
     }
-    console.log(infoMetadados);
-    console.log(valoresMetadados);
     createRespMetadados();
 });
 
 function createRespMetadados() {
+    let numValores = valoresMetadados.value.length;
+    let totalLinhas = valoresMetadados.value.reduce((resultado, linhas) => { return resultado + linhas.VALVALOR; }, 0);
 
+    let div = document.getElementById("exercicio3");
+
+    let table = document.createElement("table");
+    table.setAttribute("class", "table-style");
+    table.setAttribute("id", "respostaMetadados");
+
+    let trTitle = document.createElement("tr");
+    trTitle.setAttribute("class", "tr-style");
+    let thSigla = document.createElement("th");
+    thSigla.setAttribute("class", "th-style");
+    thSigla.innerText = infoMetadados.value[0].BASNOME;
+    trTitle.appendChild(thSigla);
+    let thDescricao = document.createElement("th");
+    thDescricao.setAttribute("class", "th-style");
+    thDescricao.innerText = "Descrição";
+    trTitle.appendChild(thDescricao);
+    table.appendChild(trTitle);
+    let thTotal = document.createElement("th");
+    thTotal.setAttribute("class", "th-style");
+    thTotal.innerText = "Total de linhas (" + extrairAno(valoresMetadados.value[0].VALDATA) + "-" + extrairAno(valoresMetadados.value[numValores - 1].VALDATA) + ")";
+    trTitle.appendChild(thTotal);
+    table.appendChild(trTitle);
+
+    let trResultado = document.createElement("tr");
+    trResultado.setAttribute("class", "tr-style");
+    let tdSigla = document.createElement("td");
+    tdSigla.setAttribute("class", "td-style");
+    tdSigla.innerText = infoMetadados.value[0].FNTSIGLA;
+    trResultado.appendChild(tdSigla);
+    let tdDescricao = document.createElement("td");
+    tdDescricao.setAttribute("class", "td-style");
+    tdDescricao.innerHTML = infoMetadados.value[0].SERCOMENTARIO;
+    trResultado.appendChild(tdDescricao);
+    table.appendChild(trResultado);
+    let tdTotal = document.createElement("td");
+    tdTotal.setAttribute("class", "td-style");
+    tdTotal.innerText = totalLinhas + " " + infoMetadados.value[0].MULNOME + " de linhas";
+    trResultado.appendChild(tdTotal);
+    table.appendChild(trResultado);
+
+    div.appendChild(table);
 };
+
+function extrairAno(data) {
+    let ano = data.slice(0, 4);
+
+    return ano;
+}
+//-------------------------------------------------------------------------------------------------------------------//
+
+//Exercício 4
