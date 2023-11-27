@@ -295,8 +295,8 @@ let infoMetadados;
 let valoresMetadados;
 
 async function buscarLinhasFixas() {
-    const urlInfo = "https://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')";
-    const urlValores = "https://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')/Valores/";
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERV')/Valores/";
     try {
         let respostaInfo = await fetch(urlInfo)
         infoMetadados = await respostaInfo.json();
@@ -311,8 +311,8 @@ async function buscarLinhasFixas() {
 }
 
 async function buscarLinhasMoveis() {
-    const urlInfo = "https://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')";
-    const urlValores = "https://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')/Valores/";
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOV')/Valores/";
     try {
         let respostaInfo = await fetch(urlInfo)
         infoMetadados = await respostaInfo.json();
@@ -327,8 +327,8 @@ async function buscarLinhasMoveis() {
 }
 
 async function buscarLinhasFixasEMoveis() {
-    const urlInfo = "https://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')";
-    const urlValores = "https://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')/Valores/";
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')/Valores/";
     try {
         let respostaInfo = await fetch(urlInfo)
         infoMetadados = await respostaInfo.json();
