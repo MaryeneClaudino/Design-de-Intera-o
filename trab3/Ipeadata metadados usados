@@ -9,3 +9,15 @@ linhas disponibilizadas para tel móvel:
 linhas disponibilizadas para tel móvel e fixa:
 	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')
 	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANATEL_SERVMOVFIX')/Valores/
+	
+produção mensal de caminhões:
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QCAMINM12')
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QCAMINM12')/Valores/
+
+produção mensal de ônibus:
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QONIBUM12')
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QONIBUM12')/Valores/
+
+produção mensal de veículos leves:
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QPASSAM12')
+	- http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QPASSAM12')/Valores/

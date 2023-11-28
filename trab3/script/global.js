@@ -380,7 +380,7 @@ function createRespMetadados() {
     trTitle.setAttribute("class", "tr-style");
     let thSigla = document.createElement("th");
     thSigla.setAttribute("class", "th-style");
-    thSigla.innerText = infoMetadados.value[0].BASNOME;
+    thSigla.innerText = infoMetadados.value[0].FNTSIGLA;
     trTitle.appendChild(thSigla);
     let thDescricao = document.createElement("th");
     thDescricao.setAttribute("class", "th-style");
@@ -397,7 +397,7 @@ function createRespMetadados() {
     trResultado.setAttribute("class", "tr-style");
     let tdSigla = document.createElement("td");
     tdSigla.setAttribute("class", "td-style");
-    tdSigla.innerText = infoMetadados.value[0].FNTSIGLA;
+    tdSigla.innerText = infoMetadados.value[0].FNTNOME;
     trResultado.appendChild(tdSigla);
     let tdDescricao = document.createElement("td");
     tdDescricao.setAttribute("class", "td-style");
@@ -420,4 +420,162 @@ function extrairAno(data) {
 }
 //-------------------------------------------------------------------------------------------------------------------//
 
-//Exercício 4
+//Exercício 4 (Utilizando filter, map e reduce)
+let valoresMetadadosPromisse;
+let infoMetadadosPromisse;
+
+function buscarCarrosPasseio() {
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QPASSAM12')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QPASSAM12')/Valores/";
+
+    return new Promise((resolve, reject) => {
+        try {
+            fetch(urlInfo).then(function (resp) {
+                resp.json().then(function (infoMetadados) {
+                    fetch(urlValores).then(function (respValues) {
+                        respValues.json().then(function (valoresMetadados) {
+                            let dados = { info: infoMetadados, valores: valoresMetadados };
+                            resolve(dados);
+                        })
+                    })
+                })
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+async function buscarCaminhoes() {
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QCAMINM12')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QCAMINM12')/Valores/";
+    return new Promise((resolve, reject) => {
+        try {
+            fetch(urlInfo).then(function (resp) {
+                resp.json().then(function (infoMetadados) {
+                    fetch(urlValores).then(function (respValues) {
+                        respValues.json().then(function (valoresMetadados) {
+                            let dados = { info: infoMetadados, valores: valoresMetadados };
+                            resolve(dados);
+                        })
+                    })
+                })
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+async function buscarOnibus() {
+    const urlInfo = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QONIBUM12')";
+    const urlValores = "http://www.ipeadata.gov.br/api/odata4/Metadados('ANFAVE12_QONIBUM12')/Valores/";
+    return new Promise((resolve, reject) => {
+        try {
+            fetch(urlInfo).then(function (resp) {
+                resp.json().then(function (infoMetadados) {
+                    fetch(urlValores).then(function (respValues) {
+                        respValues.json().then(function (valoresMetadados) {
+                            let dados = { info: infoMetadados, valores: valoresMetadados };
+                            resolve(dados);
+                        })
+                    })
+                })
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+document.getElementById("ex4Parte1").addEventListener("click", () => {
+    if (document.getElementById("promisse") != undefined || document.getElementById("promisse") != null) {
+        document.getElementById("promisse").innerHTML = "";
+    }
+    Promise.any([buscarCarrosPasseio(), buscarCaminhoes(), buscarOnibus()])
+        .then((value) => {
+            infoMetadadosPromisse = value.info.value[0];
+            valoresMetadadosPromisse = value.valores.value;
+            createRespPromisses();
+        }).catch((value) => {
+            console.log("Erro" + value);
+        });
+});
+
+document.getElementById("ex4Parte2").addEventListener("click", () => {
+    if (document.getElementById("promisse") != undefined || document.getElementById("promisse") != null) {
+        document.getElementById("promisse").innerHTML = "";
+    }
+    Promise.race([buscarCarrosPasseio(), buscarCaminhoes(), buscarOnibus()])
+        .then((value) => {
+            infoMetadadosPromisse = value.info.value[0];
+            valoresMetadadosPromisse = value.valores.value;
+            createRespPromisses(infoMetadadosPromisse, valoresMetadadosPromisse);
+        }).catch((value) => {
+            console.log("Erro" + value);
+        });
+});
+
+document.getElementById("ex4Parte3").addEventListener("click", () => {
+    if (document.getElementById("promisse") != undefined || document.getElementById("promisse") != null) {
+        document.getElementById("promisse").innerHTML = "";
+    }
+    Promise.all([buscarCarrosPasseio(), buscarCaminhoes(), buscarOnibus()])
+        .then((values) => {
+            for (let value of values) {
+                infoMetadadosPromisse = value.info.value[0];
+                valoresMetadadosPromisse = value.valores.value;
+                createRespPromisses();
+            }
+        }).catch((value) => {
+            console.log("Erro" + value);
+        });
+});
+
+function createRespPromisses() {
+    //Considerando que o mês tem aproximadamente 30 dias para fazer a média por dia.
+    let totalPromisses = valoresMetadadosPromisse.filter((dados) => { return extrairAno(dados.VALDATA) == "2022" })
+        .map((dados) => { return dados.VALVALOR / 30 })
+        .reduce((resultado, medias) => { return resultado + medias; }, 0);
+
+    let div = document.getElementById("promisse");
+
+    let table = document.createElement("table");
+    table.setAttribute("class", "table-style");
+
+    let trTitle = document.createElement("tr");
+    trTitle.setAttribute("class", "tr-style");
+    let thSigla = document.createElement("th");
+    thSigla.setAttribute("class", "th-style");
+    thSigla.innerText = infoMetadadosPromisse.FNTSIGLA;
+    trTitle.appendChild(thSigla);
+    let thDescricao = document.createElement("th");
+    thDescricao.setAttribute("class", "th-style");
+    thDescricao.innerText = "Descrição";
+    trTitle.appendChild(thDescricao);
+    table.appendChild(trTitle);
+    let thTotal = document.createElement("th");
+    thTotal.setAttribute("class", "th-style");
+    thTotal.innerText = "Total da média diária de unidades (2022)";
+    trTitle.appendChild(thTotal);
+    table.appendChild(trTitle);
+
+    let trResultado = document.createElement("tr");
+    trResultado.setAttribute("class", "tr-style");
+    let tdSigla = document.createElement("td");
+    tdSigla.setAttribute("class", "td-style");
+    tdSigla.innerText = infoMetadadosPromisse.FNTNOME;
+    trResultado.appendChild(tdSigla);
+    let tdDescricao = document.createElement("td");
+    tdDescricao.setAttribute("class", "td-style");
+    tdDescricao.innerHTML = infoMetadadosPromisse.SERCOMENTARIO;
+    trResultado.appendChild(tdDescricao);
+    table.appendChild(trResultado);
+    let tdTotal = document.createElement("td");
+    tdTotal.setAttribute("class", "td-style");
+    tdTotal.innerText = totalPromisses + " unidades";
+    trResultado.appendChild(tdTotal);
+    table.appendChild(trResultado);
+
+    div.appendChild(table);
+};
