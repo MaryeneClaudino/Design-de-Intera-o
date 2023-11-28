@@ -345,6 +345,9 @@ async function buscarLinhasFixasEMoveis() {
 }
 
 document.getElementById("metadados").addEventListener("change", () => {
+    if (document.getElementById("respostaMetadados") != undefined || document.getElementById("respostaMetadados") != null) {
+        document.getElementById("respostaMetadados").remove();
+    }
     ex3SelectResp = document.getElementById("metadados").value;
     if (ex3SelectResp == "linhasFixas") {
         buscarLinhasFixas();
